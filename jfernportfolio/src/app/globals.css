@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#navlinks, #modal {
+  animation : translate .5s;
+  z-index: 5;
+}
+
+@keyframes translate {
+  0%{
+      transform: translateY(-100%);
+  }
+  100%{
+      transform: translateY(0);
+  }
+}
+
+#Home, #About, #Experience, #Projects{
+  animation : translateXL 1s;
+  z-index: 5;
+}
+
+@keyframes translateXL {
+  0%{
+      transform: translateX(-100%);
+  }
+  100%{
+      transform: translateX(0);
+  }
+}
+
+@keyframes translateXR {
+  0%{
+      transform: translateX(100%);
+  }
+  100%{
+      transform: translateX(0);
+  }
+}
+
+
+.glow {
+  text-shadow: 1px 1px 10px #c56c05, 1px 1px 20px #a75b03
+}
+
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 5px #d97706;
+  }
+  50% {
+    box-shadow: 0 0 20px #c2410c;
+  }
+  100% {
+    box-shadow: 0 0 5px #991b1b;
+  }
+}
+
+.glow-border {
+  border: 2.5px solid transparent;
+  animation: glowing 2.5s infinite;
+}
+
+.center-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #007bff;
+  content: "";
+  transition: background-color 0.3s ease-in-out;
+}
+
+.center-line.open {
+  background-color: #fff; /* Adjust the color when the timeline item is open */
+}
+
+.timeline-item {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.timeline-item-content {
+  padding-left: 20px;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  background-color: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.circle:hover {
+  background-color: #fff; 
+}
+
+.text-wrap {
+  white-space: normal;
+  overflow-wrap: break-word; 
+  word-break: break-word; 
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.loader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  background-color: #fff;
+  border-radius: 50%;
+  animation: bounce 0.8s infinite alternate;
+}
+
+.circle:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.circle:nth-child(3) {
+  animation-delay: 0.4s;
+}
