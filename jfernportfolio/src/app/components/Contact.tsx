@@ -22,16 +22,21 @@ const Contact: React.FC<ContactProps> = ({ onClick }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    emailjs.sendForm('service_5ugqvz7', 'template_81wfqhj', e.target, 'QSU5XCBkXYavNwpUq')
-      .then((result) => {
-        console.log('Message sent:', result.text);
-        alert('Message sent successfully');
-        setFormData({ name: '', email: '', message: '' });
-      })
-      .catch((error) => {
-        console.log('Error:', error.text);
-        alert('Failed to send message');
-      });
+    emailjs.sendForm(
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
+      e.target,
+      process.env.NEXT_PUBLIC_EMAILJS_USER_ID || ''
+    )
+    .then((result) => {
+      console.log('Message sent:', result.text);
+      alert('Message sent successfully');
+      setFormData({ name: '', email: '', message: '' });
+    })
+    .catch((error) => {
+      console.log('Error:', error.text);
+      alert('Failed to send message');
+    });
   };
 
   const inputStyles = 'p-2 rounded-lg mb-4 w-full';
