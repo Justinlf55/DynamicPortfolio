@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 import Button from './Button';
 
@@ -22,13 +23,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     features,
 }) => {
     const [tab, setTab] = useState<string>('Summary');
-    const [fade, setFade] = useState<boolean>(true);  
+    const [fade, setFade] = useState<boolean>(true);
 
     const handleTabChange = (newTab: string) => {
-        setFade(false); 
+        setFade(false);
         setTimeout(() => {
-            setTab(newTab); 
-            setFade(true);  
+            setTab(newTab);
+            setFade(true);
         }, 300);
     };
 
@@ -66,7 +67,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
     return (
         <div className='mt-2 h-full flex flex-col items-center justify-center max-w-screen-md mx-auto'>
-            <img src={gifPath} alt={name} className='border-slate-400 border-[1px] shadow-lg rounded-xl w-full h-96 object-cover' />
+            <div className="w-full">
+                <Image
+                    src={gifPath}
+                    alt={name}
+                    layout='responsive'
+                    width={1000}
+                    height={300}
+                    objectFit='cover'
+                    className='border-slate-400 border-[1px] shadow-lg rounded-xl'
+                />
+            </div>
             <div className='mt-4 mb-2 flex gap-4'>
                 <Button
                     onClick={() => handleTabChange('Summary')} 

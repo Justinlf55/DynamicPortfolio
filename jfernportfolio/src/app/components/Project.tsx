@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 import ProjectCard from './ProjectCard';
 
@@ -29,7 +30,7 @@ const Project: React.FC<ProjectProps> = ({
 }) => {
     const [path, setPath] = useState<string>(tnPath);
 
-    const shadeOpacity = scale === 1.1 || scale === 1  ? 'opacity-0' : 'opacity-70 border-none';
+    const shadeOpacity = scale === 1.1 || scale === 1 ? 'opacity-0' : 'opacity-70 border-none';
 
     return (
         <div 
@@ -55,7 +56,13 @@ const Project: React.FC<ProjectProps> = ({
                     transition: 'transform 0.7s ease-in-out',
                 }}
             >
-                <img src={path} alt={name} className='rounded-xl w-full h-full' />
+                <Image 
+                    src={path} 
+                    alt={name} 
+                    layout='fill'
+                    objectFit='cover'
+                    className='rounded-xl w-full h-full'
+                />
 
                 <div className={`absolute inset-0 bg-black rounded-xl transition-opacity duration-300 ${shadeOpacity}`} />
 
