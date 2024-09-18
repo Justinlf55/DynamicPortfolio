@@ -1,7 +1,5 @@
 import React from 'react';
 
-type CallbackFunction = () => void;
-
 interface NavLinkProps {
   name: string;
   selected: string;

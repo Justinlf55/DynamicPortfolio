@@ -13,6 +13,7 @@ interface ButtonProps {
     customStyle?: string;
     transparent?: boolean;
     selected?: boolean;
+    type?: "button" | "submit" | "reset";
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -27,6 +28,7 @@ const Button: React.FC<ButtonProps> = ({
     customStyle = '',
     transparent = false,
     selected = false,
+    type = 'button',
     onClick
 }) => {
     const background = transparent 
@@ -44,6 +46,7 @@ const Button: React.FC<ButtonProps> = ({
 
     return (
         <button 
+            type={type}
             onClick={onClick} 
             className={`${buttonHoverStyles} ${background} ${buttonStyles} ${small} ${med} ${large} ${lift} ${standard} ${border} ${selectedStyle} ${customStyle}`}
         >

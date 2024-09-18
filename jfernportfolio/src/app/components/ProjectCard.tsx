@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 
 import Button from './Button';
 
@@ -13,7 +12,7 @@ interface ProjectCardProps {
     features: {
         [key: string]: string;
     };
-};
+}
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
     gifPath,
@@ -59,7 +58,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </ul>
     );
 
-    const sections = {
+    // Define the type for the keys of the sections object
+    type TabType = 'Summary' | 'Stack' | 'Features';
+
+    // Create the sections object with the correct types
+    const sections: Record<TabType, JSX.Element> = {
         'Summary': summarySection,
         'Stack': stackSection,
         'Features': featuresSection,
@@ -67,17 +70,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
     return (
         <div className='mt-2 h-full flex flex-col items-center justify-center max-w-screen-md mx-auto'>
-            <div className="w-full">
-                <Image
-                    src={gifPath}
-                    alt={name}
-                    layout='responsive'
-                    width={1000}
-                    height={300}
-                    objectFit='cover'
-                    className='border-slate-400 border-[1px] shadow-lg rounded-xl'
-                />
-            </div>
+            <img src={gifPath} alt={name} className='border-slate-400 border-[1px] shadow-lg rounded-xl w-full h-96 object-cover' />
             <div className='mt-4 mb-2 flex gap-4'>
                 <Button
                     onClick={() => handleTabChange('Summary')} 
@@ -109,7 +102,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             >
                 <h1 className='text-4xl font-bold'>{tab}</h1>
                 <div className='mt-6'>
-                    {sections[tab]}
+                    {sections[tab as TabType]}
                 </div>
             </div>
         </div>

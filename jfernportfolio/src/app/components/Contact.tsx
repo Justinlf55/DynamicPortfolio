@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import Modal from './Modal';
 import Button from './Button';
 import emailjs from 'emailjs-com';
@@ -7,25 +7,31 @@ interface ContactProps {
   onClick: () => void;
 }
 
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
 const Contact: React.FC<ContactProps> = ({ onClick }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     message: '',
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     emailjs.sendForm(
       process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
       process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
-      e.target,
+      e.currentTarget,
       process.env.NEXT_PUBLIC_EMAILJS_USER_ID || ''
     )
     .then((result) => {
@@ -70,7 +76,7 @@ const Contact: React.FC<ContactProps> = ({ onClick }) => {
           className={`${inputStyles} pb-36`}
           required
         />
-        <Button label='Send' type='submit' sm liftHover/>
+        <Button label='Send' type='submit' sm liftHover />
       </form>
     </Modal>
   );

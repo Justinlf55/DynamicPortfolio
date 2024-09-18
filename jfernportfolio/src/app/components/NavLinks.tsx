@@ -7,7 +7,7 @@ import Button from './Button';
 interface NavLinksProps {
   onClick: (index: number) => void;
   page: string;
-  onModalOpen: () => void;
+  onModalOpen?: () => void;
 }
 
 const NavLinks: React.FC<NavLinksProps> = ({onClick, page, onModalOpen}) => {
