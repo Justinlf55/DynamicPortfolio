@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 import Button from './Button';
 
@@ -33,14 +34,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     };
 
     const summarySection = (
-        <p className="text-xl">{overview}</p>
+        <p className='text-xl'>{overview}</p>
     );
 
     const stackSection = (
-        <ul className="text-xl">
+        <ul className='text-xl'>
             {Object.entries(stack).map(([category, description]) => (
-                <li key={category} className="mb-4">
-                    <h3 className="text-2xl font-semibold">{category}</h3>
+                <li key={category} className='mb-4'>
+                    <h3 className='text-2xl font-semibold'>{category}</h3>
                     <p>{description}</p>
                 </li>
             ))}
@@ -48,20 +49,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     );
 
     const featuresSection = (
-        <ul className="text-xl">
+        <ul className='text-xl'>
             {Object.entries(features).map(([feature, details]) => (
-                <li key={feature} className="mb-4">
-                    <h3 className="text-2xl font-semibold">{feature}</h3>
+                <li key={feature} className='mb-4'>
+                    <h3 className='text-2xl font-semibold'>{feature}</h3>
                     <p>{details}</p>
                 </li>
             ))}
         </ul>
     );
 
-    // Define the type for the keys of the sections object
     type TabType = 'Summary' | 'Stack' | 'Features';
 
-    // Create the sections object with the correct types
     const sections: Record<TabType, JSX.Element> = {
         'Summary': summarySection,
         'Stack': stackSection,
@@ -70,7 +69,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
     return (
         <div className='mt-2 h-full flex flex-col items-center justify-center max-w-screen-md mx-auto'>
-            <img src={gifPath} alt={name} className='border-slate-400 border-[1px] shadow-lg rounded-xl w-full h-96 object-cover' />
+            <div className='relative w-full h-96'>
+                <Image
+                    src={gifPath}
+                    alt={name}
+                    height={100}
+                    width={1000}
+                    objectFit='cover'
+                    className='border-slate-400 border-[1px] shadow-lg rounded-xl'
+                />
+            </div>
             <div className='mt-4 mb-2 flex gap-4'>
                 <Button
                     onClick={() => handleTabChange('Summary')} 

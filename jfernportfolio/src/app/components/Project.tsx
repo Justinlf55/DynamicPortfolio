@@ -9,7 +9,9 @@ interface ProjectProps {
     tnPath: string;
     overview: string;
     stack: {
-        [key: string]: string;
+        Frontend?: string;
+        Backend?: string;
+        Other?: string;
     };
     features: {
         [key: string]: string;

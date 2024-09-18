@@ -13,7 +13,7 @@ interface NavLinksProps {
 const NavLinks: React.FC<NavLinksProps> = ({onClick, page, onModalOpen}) => {
 
   return (
-    <ul id="navlinks" className='flex items-center md:block static z-10 md:absolute md:my-2 md:w-full left-0 md:shadow md:bg-slate-900'>
+    <ul id='navlinks' className='flex items-center md:block static z-10 md:absolute md:my-2 md:w-full left-0 md:shadow md:bg-slate-900'>
       <li className='mx-4 my-6 md:my-4'>
         <NavLink index={0} selected={page} onClick={onClick} name='Home'/>
       </li>

@@ -27,9 +27,9 @@ const Projects: React.FC<ProjectsProps> = ({ onClick }) => {
     };
 
     return (
-        <div id="Projects" className="flex flex-col justify-center sm:px-6">
-            <Title first="Explore" second="Projects" fontSize="7xl" />
-            <div className="mt-6 flex flex-wrap justify-between sm:pb-36 sm:justify-center">
+        <div id='Projects' className='flex flex-col justify-center sm:px-6'>
+            <Title first='Explore' second='Projects' fontSize='7xl' />
+            <div className='mt-6 flex flex-wrap justify-between sm:pb-36 sm:justify-center'>
                 {projectsData.map((project, index) => (
                     <div 
                         className={`w-[48%] mb-8 sm:w-full transition-all duration-700 ease-in-out ${getMarginClass(index)} sm:flex sm:justify-center`}

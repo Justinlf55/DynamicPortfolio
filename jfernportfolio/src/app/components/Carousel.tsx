@@ -6,8 +6,8 @@ interface CarouselProps {
   items: React.ReactNode[];
   index?: number;
   onClick?: (index: number) => void;
-  nav: 'side' | 'bottom'; // Changed to 'bottom' | 'side' to be more explicit
-  modal?: boolean; // New prop to specify if it's in a modal
+  nav: 'side' | 'bottom';
+  modal?: boolean; 
 }
 
 const Carousel: React.FC<CarouselProps> = ({ items, index = 0, nav, onClick, modal }) => {

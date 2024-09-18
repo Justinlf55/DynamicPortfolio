@@ -19,7 +19,7 @@ const Skill: React.FC<SkillProps> = ({ label, path }) => {
       onMouseLeave={() => setShowLabel(false)}
       data-tooltip={label}
     >
-      <div className="relative w-full h-full">
+      <div className='relative w-full h-full'>
         <Image
           src={path}
           alt={label}
