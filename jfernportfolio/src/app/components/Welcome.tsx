@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Typewriter from 'typewriter-effect';
 
 import Title from './Title';
@@ -11,7 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 const Welcome: React.FC = () => {
-
     const wordGradient = 'bg-clip-text bg-gradient-to-r from-amber-600 via-orange-700 to-red-800 text-transparent';
 
     const typer = (
@@ -54,10 +54,12 @@ const Welcome: React.FC = () => {
             </div>
             <div className='sm:flex sm:flex-col md:flex-col sm:items-center md:items-center sm:justify-center md:justify-center'>
                 <div className='relative w-96 h-96 sm:w-36 sm:h-36 rounded-full overflow-hidden glow-border z-50'>
-                    <img 
+                    <Image 
                         src='/headphoto.png' 
                         alt='self-image'
-                        className='w-full h-full object-cover'
+                        layout='fill'
+                        objectFit='cover'
+                        className='object-cover'
                     />
                 </div>
                 <div className='text-white font-bold rounded-full glow-border w-64 h-64 top-48 absolute sm:hidden'></div>
@@ -70,3 +72,4 @@ const Welcome: React.FC = () => {
 };
 
 export default Welcome;
+

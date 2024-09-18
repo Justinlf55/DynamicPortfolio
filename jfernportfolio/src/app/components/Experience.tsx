@@ -3,7 +3,10 @@ import Title from './Title';
 import Timeline from './Timeline';
 
 interface ExperienceProps {
-  onClick: (node: React.ReactNode) => void;
+  onClick: (node: {
+    title: string;
+    children: React.ReactNode;
+  }) => void;
 }
 
 const Experience: React.FC<ExperienceProps> = ({onClick}) => {

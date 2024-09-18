@@ -12,7 +12,7 @@ import Contact from './components/Contact';
 import Modal from './components/Modal';
 import Carousel from './components/Carousel';
 import Section from './components/Section';
-import LoadingScreen from './components/LoadingScreen'; // Import LoadingScreen
+import LoadingScreen from './components/LoadingScreen';
 
 interface ModalProps {
   title: string;
@@ -24,7 +24,7 @@ export default function Home() {
   const [isContactOpen, setIsContactOpen] = useState<boolean>(false);
   const [isJobDescriptionOpen, setIsJobDescriptionOpen] = useState<ModalProps | null>(null);
   const [isProjectOpen, setIsProjectOpen] = useState<ModalProps | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true); // Manage loading state
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const pages = ['Home', 'About', 'Skills', 'Experience', 'Projects'];
 
@@ -40,15 +40,15 @@ export default function Home() {
   }, []);
 
   const components = [
-    <Welcome key="welcome" />,
-    <About key="about" />,
-    <Skills />,
-    <Experience key="experience" onClick={setIsJobDescriptionOpen} />,
-    <Projects key="projects" onClick={setIsProjectOpen} />,
+    { id: 'welcome', component: <Welcome /> },
+    { id: 'about', component: <About /> },
+    { id: 'skills', component: <Skills /> },
+    { id: 'experience', component: <Experience onClick={setIsJobDescriptionOpen} /> },
+    { id: 'projects', component: <Projects onClick={setIsProjectOpen} /> },
   ];
 
-  const sections = components.map((component, index) => (
-    <Section key={index} content={component} />
+  const sections = components.map(({ id, component }) => (
+    <Section key={id} content={component} />
   ));
 
   if (isLoading) {

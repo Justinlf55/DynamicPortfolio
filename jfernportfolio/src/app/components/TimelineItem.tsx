@@ -40,8 +40,8 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ index, data, onClick }) => 
                 <h3 className='pb-2'>{data.jobDescription.summary}</h3>
                 <ul className='pl-4'>
                     {
-                        data.jobDescription.description.map(point => (
-                            <li className='m-2'>
+                        data.jobDescription.description.map((point, index) => (
+                            <li key={index} className='m-2'>
                                 <span className="mr-2">&#8226;</span>
                                 {point}
                             </li>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface SectionProps {
-  title: string | null;
+  title?: string;
   content: React.ReactNode;
 }
 
