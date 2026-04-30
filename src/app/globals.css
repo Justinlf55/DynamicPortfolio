@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #0a0a0b;
+    --fg: #ededed;
+    --muted: #a1a1aa;
+    --line: rgba(255, 255, 255, 0.08);
+    --accent: #8b5cf6;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* proximity (not mandatory) — snaps when user is near a boundary,
+       but never hijacks anchor jumps or programmatic scroll */
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 64px;
+    background: var(--bg);
+  }
+
+  /* Touch / short viewports — drop snap entirely so content can flow */
+  @media (max-height: 700px), (max-width: 767px) {
+    html {
+      scroll-snap-type: none;
+    }
+  }
+
+  body {
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Custom scrollbar — minimal, monochrome */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  /* Universal focus ring */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: rgba(139, 92, 246, 0.3);
+    color: white;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-6 md:px-10;
+  }
+
+  .snap-section {
+    @apply min-h-[100svh] flex items-center py-20 md:py-24;
+    scroll-snap-align: start;
+    scroll-margin-top: 64px;
+  }
+
+  .hairline {
+    @apply border border-line;
+  }
+
+  /* No backdrop-blur — cards sit on a static bg, blur is invisible
+     and forces a compositor layer per surface (~22 surfaces on the page). */
+  .surface {
+    @apply bg-ink-850/85 border border-line;
+  }
+
+  .eyebrow {
+    @apply font-mono uppercase text-eyebrow text-chalk-400;
+  }
+
+  .text-gradient {
+    background: linear-gradient(180deg, #ffffff 0%, #b5b5be 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .text-accent-gradient {
+    background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 50%, #6d28d9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Subtle dot grid that follows the page */
+  .dot-grid {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: 0 0;
+  }
+
+  /* Magnetic button glow */
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5
+           bg-white text-ink-900 text-sm font-medium tracking-tight
+           transition-all duration-300 ease-out hover:bg-chalk-100 hover:scale-[1.02]
+           focus-visible:outline-2 focus-visible:outline-accent;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5
+           bg-transparent text-chalk-100 text-sm font-medium tracking-tight
+           border border-line-strong hover:border-accent/60 hover:text-white
+           hover:bg-white/[0.03] transition-all duration-300 ease-out;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1
+           font-mono text-[11px] uppercase tracking-wider text-chalk-300
+           bg-white/[0.03] border border-line;
+  }
+
+  .chip-accent {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1
+           font-mono text-[11px] uppercase tracking-wider text-accent-soft
+           bg-accent/[0.08] border border-accent/30;
+  }
+
+  .pulse-dot::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #22c55e;
+    box-shadow: 0 0 10px #22c55e;
+    margin-right: 8px;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  /* Intro overlay letter reveal — CSS keyframe so it can't be pre-empted */
+  .intro-letter {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: intro-letter-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: opacity, transform;
+  }
+
+  @keyframes intro-letter-in {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Aurora blob — fixed, behind content. Single radial-gradient,
+   no mix-blend-mode, no filter — paints once and never reflows. */
+.aurora {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(55% 45% at 18% 12%, rgba(139, 92, 246, 0.18) 0%, rgba(139, 92, 246, 0) 70%),
+    radial-gradient(55% 45% at 82% 92%, rgba(139, 92, 246, 0.10) 0%, rgba(139, 92, 246, 0) 70%);
+}
