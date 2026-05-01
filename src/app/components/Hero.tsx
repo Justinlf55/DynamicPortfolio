@@ -99,7 +99,7 @@ const Hero: React.FC = () => {
             className="flex flex-wrap items-center gap-3 mt-2"
           >
             <a
-              href="/Justin_Fernandez_Resume_2024.pdf"
+              href="/Justin_Fernandez_Resume_2026.pdf"
               download="Justin_Fernandez_Resume.pdf"
               className="btn-primary"
             >
