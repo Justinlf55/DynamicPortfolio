@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState, useMemo } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import { RevealGroup, RevealItem } from "./Reveal";
@@ -14,7 +14,6 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const Skills: React.FC = () => {
   const [category, setCategory] = useState<(typeof skillCategories)[number]>("All");
   const [selected, setSelected] = useState<string | null>(null);
-  const reduce = useReducedMotion();
 
   const filtered = useMemo(
     () =>
@@ -43,6 +42,7 @@ const Skills: React.FC = () => {
           description="Click any tile to see how I've used it."
         />
 
+        {/* Category filter chips */}
         <RevealGroup
           stagger={0.05}
           y={14}
@@ -66,27 +66,21 @@ const Skills: React.FC = () => {
           ))}
         </RevealGroup>
 
-        {/* Split-pane container: grid on left, experience panel on right */}
-        <div className="flex flex-col lg:flex-row gap-5 lg:gap-6">
-          {/* Skills grid — compresses to ~half width when a skill is selected */}
-          <motion.div
-            layout={!reduce}
-            transition={{ duration: 0.55, ease: EASE }}
-            className={cn(
-              "min-w-0 w-full",
-              isSplit && "lg:w-1/2"
-            )}
+        {/* Desktop split-pane (lg+): grid on left, panel on right */}
+        <div className="hidden lg:flex gap-6 items-start">
+          {/* Grid — flex-basis transitions between 100% (full) and 50% (split) */}
+          <div
+            className="min-w-0 transition-[flex-basis] duration-500 ease-out"
+            style={{ flexBasis: isSplit ? "50%" : "100%" }}
           >
             <RevealGroup
-              key={category /* re-stagger when filter changes */}
+              key={`${category}-${isSplit ? "split" : "full"}`}
               stagger={0.04}
               y={16}
               duration={0.5}
               className={cn(
-                "grid gap-3 transition-[grid-template-columns] duration-500",
-                isSplit
-                  ? "grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-3 xl:grid-cols-4"
-                  : "grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7"
+                "grid gap-3",
+                isSplit ? "grid-cols-3 xl:grid-cols-4" : "grid-cols-7"
               )}
             >
               {filtered.map((skill) => (
@@ -103,30 +97,69 @@ const Skills: React.FC = () => {
                 </RevealItem>
               ))}
             </RevealGroup>
-          </motion.div>
+          </div>
 
-          {/* Experience panel — slides in from the right */}
+          {/* Panel slot — flex-basis transitions between 0 (collapsed) and 50% (split) */}
+          <div
+            className="min-w-0 overflow-hidden transition-[flex-basis] duration-500 ease-out"
+            style={{ flexBasis: isSplit ? "50%" : "0%" }}
+            aria-hidden={!isSplit}
+          >
+            <AnimatePresence mode="wait">
+              {selectedSkill && (
+                <motion.div
+                  key={selectedSkill.label}
+                  initial={{ opacity: 0, x: 24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 16 }}
+                  transition={{ duration: 0.4, ease: EASE }}
+                  role="region"
+                  aria-live="polite"
+                  aria-label={`${selectedSkill.label} experience`}
+                >
+                  <ExperiencePanel
+                    skill={selectedSkill}
+                    onClose={() => setSelected(null)}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Mobile/tablet (below lg): grid full width, panel stacks below */}
+        <div className="lg:hidden">
+          <RevealGroup
+            key={category}
+            stagger={0.04}
+            y={16}
+            duration={0.5}
+            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3"
+          >
+            {filtered.map((skill) => (
+              <RevealItem key={skill.label}>
+                <SkillTile
+                  skill={skill}
+                  isSelected={selected === skill.label}
+                  onSelect={() =>
+                    setSelected((prev) =>
+                      prev === skill.label ? null : skill.label
+                    )
+                  }
+                />
+              </RevealItem>
+            ))}
+          </RevealGroup>
+
           <AnimatePresence mode="wait">
             {selectedSkill && (
-              <motion.aside
+              <motion.div
                 key={selectedSkill.label}
-                initial={
-                  reduce
-                    ? { opacity: 0 }
-                    : { opacity: 0, x: 60, width: 0 }
-                }
-                animate={
-                  reduce
-                    ? { opacity: 1 }
-                    : { opacity: 1, x: 0, width: "auto" }
-                }
-                exit={
-                  reduce
-                    ? { opacity: 0 }
-                    : { opacity: 0, x: 40, width: 0 }
-                }
-                transition={{ duration: 0.5, ease: EASE }}
-                className="lg:w-1/2 lg:flex-shrink-0 overflow-hidden"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.4, ease: EASE }}
+                className="mt-5"
                 role="region"
                 aria-live="polite"
                 aria-label={`${selectedSkill.label} experience`}
@@ -135,7 +168,7 @@ const Skills: React.FC = () => {
                   skill={selectedSkill}
                   onClose={() => setSelected(null)}
                 />
-              </motion.aside>
+              </motion.div>
             )}
           </AnimatePresence>
         </div>
@@ -152,8 +185,8 @@ interface ExperiencePanelProps {
 }
 
 const ExperiencePanel: React.FC<ExperiencePanelProps> = ({ skill, onClose }) => (
-  <article className="surface rounded-2xl p-5 md:p-6 border-accent/30 shadow-[0_10px_40px_-10px_rgba(139,92,246,0.35)] relative h-full flex flex-col gap-4">
-    {/* Close — right-arrow that pushes the panel back out */}
+  <article className="surface rounded-2xl p-5 md:p-6 border-accent/30 shadow-[0_10px_40px_-10px_rgba(139,92,246,0.35)] relative">
+    {/* Close — right-arrow that pushes the panel out */}
     <button
       type="button"
       onClick={onClose}
@@ -167,8 +200,8 @@ const ExperiencePanel: React.FC<ExperiencePanelProps> = ({ skill, onClose }) => 
     </button>
 
     {/* Header — icon + name + meta */}
-    <header className="flex items-start gap-4 pr-10">
-      <div className="relative h-12 w-12 md:h-14 md:w-14 flex-shrink-0 rounded-xl bg-white/[0.04] border border-line p-2.5">
+    <header className="flex items-start gap-4 pr-12 mb-4">
+      <div className="relative h-12 w-12 md:h-14 md:w-14 flex-shrink-0 rounded-xl bg-white/[0.04] border border-line p-2">
         <Image
           src={skill.path}
           alt=""
@@ -216,7 +249,7 @@ const SkillTile: React.FC<SkillTileProps> = ({ skill, isSelected, onSelect }) =>
     aria-pressed={isSelected}
     aria-label={`${skill.label} — click to see my experience with it`}
     className={cn(
-      "group relative w-full aspect-square surface rounded-xl flex flex-col items-center justify-center gap-2 p-3",
+      "group relative w-full aspect-square surface rounded-xl flex flex-col items-center justify-center gap-2 p-3 overflow-hidden",
       "transition-[transform,background-color,border-color,box-shadow] duration-300",
       "hover:-translate-y-1 hover:bg-white/[0.04] hover:border-accent/40",
       "hover:shadow-[0_8px_30px_-10px_rgba(139,92,246,0.4)]",
@@ -241,7 +274,7 @@ const SkillTile: React.FC<SkillTileProps> = ({ skill, isSelected, onSelect }) =>
     </div>
     <span
       className={cn(
-        "relative font-mono text-[10px] uppercase tracking-wider transition-colors text-center",
+        "relative font-mono text-[9px] sm:text-[10px] uppercase tracking-wider transition-colors text-center w-full truncate",
         isSelected ? "text-white" : "text-chalk-300 group-hover:text-white"
       )}
     >
