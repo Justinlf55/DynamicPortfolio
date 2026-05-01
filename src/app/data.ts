@@ -2,6 +2,10 @@ export type Skill = {
   path: string;
   label: string;
   category: ("Languages" | "Frontend" | "Backend" | "Frameworks" | "Cloud")[];
+  /** Years of professional experience, approximate */
+  years?: string;
+  /** Honest, defensible 1-3 sentence experience blurb */
+  experience: string;
 };
 
 export type Project = {
@@ -28,20 +32,118 @@ export type Role = {
 };
 
 export const skillsData: Skill[] = [
-  { path: "/JS.png", label: "JavaScript", category: ["Languages", "Frontend"] },
-  { path: "/ts.png", label: "TypeScript", category: ["Languages", "Frontend"] },
-  { path: "/React.png", label: "React", category: ["Frontend", "Frameworks"] },
-  { path: "/next.png", label: "Next.js", category: ["Frontend", "Frameworks"] },
-  { path: "/tailwind.png", label: "Tailwind", category: ["Frontend", "Frameworks"] },
-  { path: "/node.png", label: "Node.js", category: ["Backend", "Frameworks"] },
-  { path: "/express.png", label: "Express", category: ["Backend", "Frameworks"] },
-  { path: "/ruby.png", label: "Ruby", category: ["Languages", "Backend"] },
-  { path: "/rails.png", label: "Rails", category: ["Backend", "Frameworks"] },
-  { path: "/py.png", label: "Python", category: ["Languages", "Backend"] },
-  { path: "/dj.png", label: "Django", category: ["Backend", "Frameworks"] },
-  { path: "/postgres.png", label: "PostgreSQL", category: ["Backend"] },
-  { path: "/mongo.png", label: "MongoDB", category: ["Backend"] },
-  { path: "/aws.png", label: "AWS", category: ["Cloud"] },
+  {
+    path: "/JS.png",
+    label: "JavaScript",
+    category: ["Languages", "Frontend"],
+    years: "4+ yrs",
+    experience:
+      "My primary language since App Academy in 2019. Daily driver across every role: React components, Node.js services, and the build tooling around them. Comfortable with ES6+, async patterns, and the standard library.",
+  },
+  {
+    path: "/ts.png",
+    label: "TypeScript",
+    category: ["Languages", "Frontend"],
+    years: "3+ yrs",
+    experience:
+      "Daily driver at Gemini and Upstart on React and React Native applications. Strict mode enabled, comfortable with generics and conditional types, and have hooked up OpenAPI codegen so the API client stays typed end-to-end.",
+  },
+  {
+    path: "/React.png",
+    label: "React",
+    category: ["Frontend", "Frameworks"],
+    years: "4+ yrs",
+    experience:
+      "Primary frontend framework across every role. Built consumer surfaces serving 587K MTUs at Gemini and 3M+ customers at Upstart. Comfortable with hooks, Suspense, the React 18 concurrent features, and Server Components in Next.js App Router.",
+  },
+  {
+    path: "/next.png",
+    label: "Next.js",
+    category: ["Frontend", "Frameworks"],
+    years: "3+ yrs",
+    experience:
+      "Migrated Upstart's loan-application surfaces from CSR to SSR (Pages Router era), cutting load times ~40% and lifting Lighthouse scores above 90. Built my portfolio v2 on Next 14 App Router with RSC, Streaming SSR, and Server Actions.",
+  },
+  {
+    path: "/tailwind.png",
+    label: "Tailwind",
+    category: ["Frontend", "Frameworks"],
+    years: "2+ yrs",
+    experience:
+      "Used heavily on my portfolio v2 with a custom design-token setup, dark theme, and arbitrary-value escape hatches. Comfortable with the utility-first mental model and how to extend the theme cleanly.",
+  },
+  {
+    path: "/node.png",
+    label: "Node.js",
+    category: ["Backend", "Frameworks"],
+    years: "4+ yrs",
+    experience:
+      "Designed RESTful APIs at Tonight backed by MongoDB. Run Node-based build, lint, and test pipelines on every project (Next.js, Vite, Webpack, Playwright). Comfortable with the runtime, npm/yarn, and async patterns.",
+  },
+  {
+    path: "/express.png",
+    label: "Express",
+    category: ["Backend", "Frameworks"],
+    years: "1+ yr",
+    experience:
+      "Backend framework at Tonight. Designed RESTful endpoints serving the React web client and the Swift / React Native mobile app, with MongoDB as the data layer. Also used on Monster Mayhem (real-time multiplayer side project).",
+  },
+  {
+    path: "/ruby.png",
+    label: "Ruby",
+    category: ["Languages", "Backend"],
+    years: "2 yrs",
+    experience:
+      "Used at Upstart for ~2 years on the Rails-backed loan-application stack. Comfortable reading and modifying production Ruby and writing RSpec tests. Not my primary language, but I can be productive in it.",
+  },
+  {
+    path: "/rails.png",
+    label: "Rails",
+    category: ["Backend", "Frameworks"],
+    years: "2 yrs",
+    experience:
+      "Owned full-stack work on the loan-application surfaces at Upstart for ~2 years. Built and maintained RESTful endpoints integrated with the React frontend, and wrote RSpec coverage as part of the team's 90%+ test SLA.",
+  },
+  {
+    path: "/py.png",
+    label: "Python",
+    category: ["Languages", "Backend"],
+    years: "Familiar",
+    experience:
+      "Used during App Academy's bootcamp curriculum and for occasional scripts and prototyping. Less production experience than my JavaScript/TypeScript work; comfortable but not my primary language.",
+  },
+  {
+    path: "/dj.png",
+    label: "Django",
+    category: ["Backend", "Frameworks"],
+    years: "Familiar",
+    experience:
+      "App Academy bootcamp project work. Comfortable with the basics: models, views, the ORM, and templating. Not my production stack since.",
+  },
+  {
+    path: "/postgres.png",
+    label: "PostgreSQL",
+    category: ["Backend"],
+    years: "3+ yrs",
+    experience:
+      "Backing database at Upstart and on side projects (Newflix). Comfortable writing SQL by hand, designing schemas with the right normalization tradeoffs, and reasoning about index and query performance.",
+  },
+  {
+    path: "/mongo.png",
+    label: "MongoDB",
+    category: ["Backend"],
+    years: "1+ yr",
+    experience:
+      "Production document store at Tonight, plus Monster Mayhem (real-time multiplayer side project). Comfortable modeling around access patterns and using the aggregation pipeline.",
+  },
+  {
+    path: "/aws.png",
+    label: "AWS",
+    category: ["Cloud"],
+    years: "Working knowledge",
+    experience:
+      "Used S3 for Newflix's media storage and for build-artifact storage on side projects. Tangential exposure to broader AWS surfaces (IAM, CloudFront) at work; not deep cloud-architecture experience.",
+  },
 ];
 
 export const skillCategories = ["All", "Languages", "Frontend", "Backend", "Frameworks", "Cloud"] as const;
