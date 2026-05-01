@@ -1,7 +1,7 @@
 export type Skill = {
   path: string;
   label: string;
-  category: ("Languages" | "Frontend" | "Backend" | "Frameworks" | "Cloud")[];
+  category: ("Languages" | "Frontend" | "Backend" | "Frameworks" | "Testing" | "Tools" | "Cloud")[];
   /** Years of professional experience, approximate */
   years?: string;
   /** Honest, defensible 1-3 sentence experience blurb */
@@ -144,9 +144,201 @@ export const skillsData: Skill[] = [
     experience:
       "Used S3 for Newflix's media storage and for build-artifact storage on side projects. Tangential exposure to broader AWS surfaces (IAM, CloudFront) at work; not deep cloud-architecture experience.",
   },
+
+  // -------------------------------------------------------------------------
+  // React Native / mobile
+  // -------------------------------------------------------------------------
+  {
+    path: "https://cdn.simpleicons.org/react/61DAFB",
+    label: "React Native",
+    category: ["Frontend", "Frameworks"],
+    years: "2+ yrs",
+    experience:
+      "Built cross-platform mobile features at Gemini (credit card app) and Tonight (nightlife discovery) using React Native. Comfortable with gesture handlers, navigation patterns, and the bridge to native modules when something can't be done in JS.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/expo/FFFFFF",
+    label: "Expo",
+    category: ["Frontend", "Frameworks"],
+    years: "1+ yr",
+    experience:
+      "Used at Gemini for the credit card mobile app. EAS Build for our CI pipeline and Expo Router for navigation. Made the cross-platform path much cheaper than vanilla React Native CLI.",
+  },
+
+  // -------------------------------------------------------------------------
+  // React ecosystem (state, forms, animation, design system)
+  // -------------------------------------------------------------------------
+  {
+    path: "https://cdn.simpleicons.org/redux/764ABC",
+    label: "Redux Toolkit",
+    category: ["Frontend"],
+    years: "3+ yrs",
+    experience:
+      "Production state management at Gemini and Upstart. I lean on it for genuinely global UI state (auth, theme, feature flags, anything actually shared across the app). Slices keep the patterns predictable, and the devtools save real debugging time.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/reactquery/FF4154",
+    label: "React Query",
+    category: ["Frontend"],
+    years: "2+ yrs",
+    experience:
+      "Server state at Gemini for the credit card application data. Caching, invalidation, retries, and request dedup are problems it solves better than anything I'd hand-roll. Pairs naturally with our OpenAPI-generated client types.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/reacthookform/EC5990",
+    label: "React Hook Form",
+    category: ["Frontend"],
+    years: "2+ yrs",
+    experience:
+      "Form state for the multi-step credit card onboarding at Gemini (8+ steps with conditional fields). Keeping form state out of React's render cycle was the difference between snappy and sluggish on a flow that big.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/storybook/FF4785",
+    label: "Storybook",
+    category: ["Frontend"],
+    years: "Familiar",
+    experience:
+      "Used inside Gemini's design system for component documentation and visual regression. Comfortable building stories and using controls; not deep on the test-runner or Chromatic side.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/framer/0055FF",
+    label: "Framer Motion",
+    category: ["Frontend"],
+    years: "1+ yr",
+    experience:
+      "Animation throughout my portfolio v2: scroll-driven reveals, drag-paginated carousel, layout transitions on the skills section. Comfortable with the variants API, AnimatePresence, and the layout prop.",
+  },
+
+  // -------------------------------------------------------------------------
+  // Languages — fundamentals + Swift
+  // -------------------------------------------------------------------------
+  {
+    path: "https://cdn.simpleicons.org/html5/E34F26",
+    label: "HTML5",
+    category: ["Languages", "Frontend"],
+    years: "5+ yrs",
+    experience:
+      "Daily on the frontend. Strong on semantic markup, accessibility (ARIA, landmarks, headings hierarchy), and forms. Pays off at the WCAG 2.1 AA bar I worked to at both Gemini and Upstart.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/css/1572B6",
+    label: "CSS3",
+    category: ["Languages", "Frontend"],
+    years: "5+ yrs",
+    experience:
+      "Daily on the frontend. Comfortable with grid, flexbox, custom properties, container queries, and the modern spec. I prefer Tailwind for productivity but read and write vanilla CSS without issue.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/swift/F05138",
+    label: "Swift",
+    category: ["Languages"],
+    years: "Familiar",
+    experience:
+      "Built parts of Tonight's iOS app in Swift before the team moved more of the mobile work into React Native. Comfortable with UIKit basics; not my primary mobile path since.",
+  },
+
+  // -------------------------------------------------------------------------
+  // Testing
+  // -------------------------------------------------------------------------
+  {
+    path: "https://cdn.simpleicons.org/jest/C21325",
+    label: "Jest",
+    category: ["Testing"],
+    years: "4+ yrs",
+    experience:
+      "Primary unit test runner across every role. Comfortable with mocks, snapshot tests where they make sense, custom matchers, and async patterns. At Upstart I helped maintain 90%+ coverage on owned code.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/testinglibrary/E33332",
+    label: "React Testing Library",
+    category: ["Testing"],
+    years: "3+ yrs",
+    experience:
+      "Test consumer behavior at the component level, prefer queries by role over implementation details. Standard tool at both Gemini and Upstart for production component coverage.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/playwright/2EAD33",
+    label: "Playwright",
+    category: ["Testing"],
+    years: "2+ yrs",
+    experience:
+      "E2E and smoke tests at Gemini and Upstart. Wrote critical-path tests for credit card application and loan funnel completion. Preferred Playwright over Cypress for the cleaner async API and parallelism story.",
+  },
+
+  // -------------------------------------------------------------------------
+  // API / backend additions
+  // -------------------------------------------------------------------------
+  {
+    path: "https://cdn.simpleicons.org/graphql/E10098",
+    label: "GraphQL",
+    category: ["Backend"],
+    years: "Familiar",
+    experience:
+      "Used on side projects to learn the model. Most of my production work has been REST/OpenAPI-driven, so I'd ramp on a real GraphQL codebase rather than claim deep production experience.",
+  },
+
+  // -------------------------------------------------------------------------
+  // Tools — analytics, monitoring, design, project mgmt
+  // -------------------------------------------------------------------------
+  {
+    path: "https://cdn.simpleicons.org/figma/F24E1E",
+    label: "Figma",
+    category: ["Tools"],
+    years: "4+ yrs",
+    experience:
+      "Daily design-handoff tool at every recent role. I work directly from the file (not flat exports), inspect component variants, pull design tokens, and flag inconsistencies back to design before implementation starts.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/mixpanel/7856FF",
+    label: "Mixpanel",
+    category: ["Tools"],
+    years: "1+ yr",
+    experience:
+      "Funnel and engagement instrumentation at Gemini for the credit card application. I built a typed event-tracking wrapper around the SDK so cohort tagging stayed consistent across A/B experiments.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/datadog/632CA6",
+    label: "Datadog",
+    category: ["Tools"],
+    years: "3+ yrs",
+    experience:
+      "Production monitoring and incident triage at both Gemini and Upstart. RUM for frontend perf (LCP, INP), logs for debugging, dashboards for on-call. Comfortable building alerts and reading flame graphs.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/githubactions/2088FF",
+    label: "GitHub Actions",
+    category: ["Tools", "Cloud"],
+    years: "3+ yrs",
+    experience:
+      "CI/CD on every project since 2022. Built the parallelized test pipeline at Gemini that cut runtime ~25%. Comfortable with composite actions, matrix builds, secrets, and workflow_dispatch for ad-hoc runs.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/vercel/FFFFFF",
+    label: "Vercel",
+    category: ["Tools", "Cloud"],
+    years: "2+ yrs",
+    experience:
+      "Deployment for my portfolio and side projects. The Next.js integration is hard to beat for preview environments, edge caching, and Web Analytics. The platform's defaults are usually the right call.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/linear/5E6AD2",
+    label: "Linear",
+    category: ["Tools"],
+    years: "1+ yr",
+    experience:
+      "Project management at Gemini. I led the team's migration from Jira to Linear, including the data import, workflow conventions, and Slack integrations. Cleaner UX, faster keyboard navigation, less ceremony.",
+  },
+  {
+    path: "https://cdn.simpleicons.org/docker/2496ED",
+    label: "Docker",
+    category: ["Tools", "Cloud"],
+    years: "Working knowledge",
+    experience:
+      "Comfortable with the basics: writing Dockerfiles, docker-compose for local dev environments, debugging container issues. Not deep on multi-stage builds or production orchestration. I've consumed Docker more than I've authored it.",
+  },
 ];
 
-export const skillCategories = ["All", "Languages", "Frontend", "Backend", "Frameworks", "Cloud"] as const;
+export const skillCategories = ["All", "Languages", "Frontend", "Backend", "Testing", "Tools", "Frameworks", "Cloud"] as const;
 
 export const projectsData: Project[] = [
   {
